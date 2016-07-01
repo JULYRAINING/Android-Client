@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="id_radioButtonBoy" type="id">1</item>
+    <item name="id_radioButtonGirl" type="id">0</item>
+    <item name="courseTopTitle" type="id">0x957957957</item>
+</resources>

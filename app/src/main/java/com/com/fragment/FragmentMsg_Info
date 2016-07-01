@@ -1,0 +1,53 @@
+1.进入
+    判断sqlite中是否有message数据
+        if(有){
+            //加载显示sqlite中最新数据(20条)
+            getMessage(0, MaxId, MaxId-20);
+        }else{
+            //向服务器请求最新数据(20条)
+            getMessage(1, 0, MaxId);
+        }
+    当RecyclerView滑动时
+        判断
+            if(向上滑动){
+
+                //加载更早的数据
+                getMessage(0, lastVisibleItem, lastVisibleItem-20)
+
+
+            }else(向下滑动){
+                //向服务器请求最新数据(20条)
+                getMessage(1, 0, MaxId);
+            }
+
+需控制的变量：
+        1.请求的数据是最新还是更早 flag 1表示最新 0表示更早
+        2.请求数据的起始位置 startId
+        3.请求数据的结束位置 endId
+
+方法
+    getMessage(int flag, int startId, int endId){
+
+            if(flag == 1){
+                //向服务器请求最新数据
+                //参数为本地最大messageId
+
+                getMessageFromServer(flag, 0,maxMessageIdInDB);
+            }else{
+                //查询sqlite中是否有从startId到endId的更早数据
+
+                if(有数据){
+                    //加载到View
+                }else{
+                    //向服务器请求更早数据
+                    getMessageFromServer(flag, startId, endId);
+                }
+            }
+    }
+
+    getMessageFromServer(int flag, int startId, int endId){
+
+        params.put("flag", flag);
+        params.put("startId", startId);
+        params.put("endId", endId);
+    }

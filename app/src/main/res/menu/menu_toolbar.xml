@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/new_message"
+        android:icon="@drawable/ic_markunread_white_18dp"
+        android:title="未读私信"
+        android:enabled="true">
+
+    </item>
+    <item
+        android:id="@+id/add_message"
+        android:icon="@drawable/ic_add_white_24dp"
+        android:title="添加"
+        android:enabled="true"
+
+        />
+    <item
+        android:id="@+id/search_message"
+        android:icon="@drawable/ic_search_white_24dp"
+        android:title="搜索" />
+
+
+</menu>

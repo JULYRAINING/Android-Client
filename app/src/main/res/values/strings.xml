@@ -1,0 +1,202 @@
+<resources>
+    <string name="app_name">MD_C_Test</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="title_activity_scrolling">ScrollingActivity</string>
+    <string name="large_text">
+        "Material is the metaphor.\n\n"
+
+        "A material metaphor is the unifying theory of a rationalized space and a system of motion."
+        "The material is grounded in tactile reality, inspired by the study of paper and ink, yet "
+        "technologically advanced and open to imagination and magic.\n"
+        "Surfaces and edges of the material provide visual cues that are grounded in reality. The "
+        "use of familiar tactile attributes helps users quickly understand affordances. Yet the "
+        "flexibility of the material creates new affordances that supercede those in the physical "
+        "world, without breaking the rules of physics.\n"
+        "The fundamentals of light, surface, and movement are key to conveying how objects move, "
+        "interact, and exist in space and in relation to each other. Realistic lighting shows "
+        "seams, divides space, and indicates moving parts.\n\n"
+
+        "Bold, graphic, intentional.\n\n"
+
+        "The foundational elements of print based design typography, grids, space, scale, color, "
+        "and use of imagery guide visual treatments. These elements do far more than please the "
+        "eye. They create hierarchy, meaning, and focus. Deliberate color choices, edge to edge "
+        "imagery, large scale typography, and intentional white space create a bold and graphic "
+        "interface that immerse the user in the experience.\n"
+        "An emphasis on user actions makes core functionality immediately apparent and provides "
+        "waypoints for the user.\n\n"
+
+        "Motion provides meaning.\n\n"
+
+        "Motion respects and reinforces the user as the prime mover. Primary user actions are "
+        "inflection points that initiate motion, transforming the whole design.\n"
+        "All action takes place in a single environment. Objects are presented to the user without "
+        "breaking the continuity of experience even as they transform and reorganize.\n"
+        "Motion is meaningful and appropriate, serving to focus attention and maintain continuity. "
+        "Feedback is subtle yet clear. Transitions are efﬁcient yet coherent.\n\n"
+
+        "3D world.\n\n"
+
+        "The material environment is a 3D space, which means all objects have x, y, and z "
+        "dimensions. The z-axis is perpendicularly aligned to the plane of the display, with the "
+        "positive z-axis extending towards the viewer. Every sheet of material occupies a single "
+        "position along the z-axis and has a standard 1dp thickness.\n"
+        "On the web, the z-axis is used for layering and not for perspective. The 3D world is "
+        "emulated by manipulating the y-axis.\n\n"
+
+        "Light and shadow.\n\n"
+
+        "Within the material environment, virtual lights illuminate the scene. Key lights create "
+        "directional shadows, while ambient light creates soft shadows from all angles.\n"
+        "Shadows in the material environment are cast by these two light sources. In Android "
+        "development, shadows occur when light sources are blocked by sheets of material at "
+        "various positions along the z-axis. On the web, shadows are depicted by manipulating the "
+        "y-axis only. The following example shows the card with a height of 6dp.\n\n"
+
+        "Resting elevation.\n\n"
+
+        "All material objects, regardless of size, have a resting elevation, or default elevation "
+        "that does not change. If an object changes elevation, it should return to its resting "
+        "elevation as soon as possible.\n\n"
+
+        "Component elevations.\n\n"
+
+        "The resting elevation for a component type is consistent across apps (e.g., FAB elevation "
+        "does not vary from 6dp in one app to 16dp in another app).\n"
+        "Components may have different resting elevations across platforms, depending on the depth "
+        "of the environment (e.g., TV has a greater depth than mobile or desktop).\n\n"
+
+        "Responsive elevation and dynamic elevation offsets.\n\n"
+
+        "Some component types have responsive elevation, meaning they change elevation in response "
+        "to user input (e.g., normal, focused, and pressed) or system events. These elevation "
+        "changes are consistently implemented using dynamic elevation offsets.\n"
+        "Dynamic elevation offsets are the goal elevation that a component moves towards, relative "
+        "to the component’s resting state. They ensure that elevation changes are consistent "
+        "across actions and component types. For example, all components that lift on press have "
+        "the same elevation change relative to their resting elevation.\n"
+        "Once the input event is completed or cancelled, the component will return to its resting "
+        "elevation.\n\n"
+
+        "Avoiding elevation interference.\n\n"
+
+        "Components with responsive elevations may encounter other components as they move between "
+        "their resting elevations and dynamic elevation offsets. Because material cannot pass "
+        "through other material, components avoid interfering with one another any number of ways, "
+        "whether on a per component basis or using the entire app layout.\n"
+        "On a component level, components can move or be removed before they cause interference. "
+        "For example, a floating action button (FAB) can disappear or move off screen before a "
+        "user picks up a card, or it can move if a snackbar appears.\n"
+        "On the layout level, design your app layout to minimize opportunities for interference. "
+        "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
+        "when a user tries to pick up one of cards.\n\n"
+    </string>
+    <string name="msg_content_text">我曾经看见过那个男人的三张照片。</string>
+    <string name="title_activity_login_">Login_Activity</string>
+    <string name="title_activity_msg__send">Msg_Send</string>
+    <string name="title_activity_msg__send__select__img">Msg_Send_Select_Img</string>
+    <string name="title_activity_web_view">WebViewActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="default_time">9-23 09:16</string>
+    <string name="default_username">初音</string>
+    <string name="default_userimg">R.drawable.ic_launcher</string>
+    <string name="default_send_msg_tv">发表</string>
+    <string name="alert_fraguser_nofriend">你现在还没有好友</string>
+    <string name="alert_fraguser_cancelLogin">已注销登录</string>
+    <string name="default_usersex">0</string>
+    <string name="default_userage">年龄</string>
+    <string name="default_usersigniture">怕什么真理无穷，进一寸有一寸的欢喜</string>
+    <string name="default_userpassword">password</string>
+    <string name="alert_login_noNameOrPassword">请输入用户名或密码</string>
+    <string name="alert_login_welcome">初次见面，请多多关照</string>
+    <string name="alert_login_error">用户名或密码错误</string>
+    <string name="default_usergrade">一年级</string>
+    <string name="default_usermajor">绘画</string>
+    <string name="default_message_username">初音</string>
+    <string name="default_message_content">我是初音</string>
+    <string name="alert_fragmsg_noNewMsg">还没有新的消息</string>
+    <string name="college_url">http://www.cup.edu.cn</string>
+    <string name="alert_fragSearch_searchUser">在用户中查找：</string>
+    <string name="alert_fragSearch_searchMsg">在消息中查找：</string>
+    <string name="alert_fullImage_title">查看图片</string>
+    <string name="alert_fullImage_Reselect">请重新选择图片</string>
+    <string name="default_commend_one">对我来说，所谓人的生活是难以捉摸的。因为我出生在东北的乡下，所以初次见到火车，还是长大了以后的事情。</string>
+    <string name="default_commend_two">我在火车站的天桥上爬上爬下，完全没有察觉到天桥的架设乃是便于人们跨越铁轨，相反认为，其复杂的结构，仅仅是为了把车站建成外国的游乐场那样又过瘾又时髦的设施。</string>
+    <string name="default_commend_three">很长一段时间我一直都这么想。沿着天桥上上下下，这在我看来，毋宁说是一种超凡脱俗的俏皮游戏，甚至我认为，它是铁路的种种服务中最善解人意的一种。</string>
+    <string name="default_commend_four">尔后，当我发现它不过是为了方便乘客跨越铁轨而架设的及其实用的阶梯时，不由得大为扫兴。</string>
+    <string name="alert_Atysend_successPublish">已成功发送</string>
+    <string name="alert_Atysend_ifWantQuit">退出编辑吗？</string>
+    <string name="alert_Atysend_quit">退出</string>
+    <string name="alert_Atysend_continue">继续编辑</string>
+    <string name="alert_AtySelectImg_max_nine">最多选择九张图片</string>
+    <string name="alert_AtySelectImg_noSDCard">无法加载SD卡！</string>
+    <string name="alert_AtySetting_noUpdate">已是最新版本</string>
+    <string name="AtySelectImg_childFolder">DCIM</string>
+    <string name="alert_AtySetting_saved">已保存</string>
+    <string name="default_setting_save">保存</string>
+    <string name="default_Aty_Setting_child3_autoUpdate">自动检查更新</string>
+    <string name="default_Aty_Setting_child3_about">关于</string>
+    <string name="default_Aty_Setting_child2_display_Sex">显示性别</string>
+    <string name="default_Aty_Setting_child2_display_Name">显示姓名</string>
+    <string name="default_Aty_Setting_child1_sound">声音</string>
+    <string name="default_Aty_Setting_child1_vibrate">振动</string>
+    <string name="default_Aty_Setting_group1_alert">消息提醒</string>
+    <string name="default_Aty_Setting_group2_secret">隐私设置</string>
+    <string name="default_Aty_Setting_group3_check_update">检查新版本</string>
+    <string name="default_commend_five">另外，在孩提时代，我从小人书上看到地铁时，也以为它的设计并非出自于实用性需要，而是缘于另一个更好玩的目的：即比起乘坐地面上的车辆，倒是乘坐地下的车辆更显得别出心裁，趣味横生。</string>
+    <string name="default_commend_six">从幼年时代起，我就体弱多病，常常卧床不起。</string>
+    <string name="default_commend_seven">我总是一边躺着，一边思忖到：这些床单、枕套、被套、全都是无聊的装饰品。</string>
+    <string name="default_commend_eight">直到自己二十岁左右才恍然大悟，原来它们都不过是一些实用品罢了。</string>
+    <string name="default_commend_nine">于是，我对人类的节俭不禁感到黯然神伤。</string>
+    <string name="default_commend_ten">还有，我也不知道饥肠辘辘是何等滋味。这倒并不是故意炫耀自己生长在不愁吃不愁穿的富贵人家。我绝不是在那样一种愚蠢而浅薄的意义上这么说的，只是我真的对“饥肠辘辘”的感觉一无所知而已。或许我这样说有点蹊跷，但是即使我两腹空空，也真的不会有所察觉。在上小学和中学时，一旦我从学校回到家里，周围的人就会七嘴八舌地问道：“哎呀，肚子也该饿了吧，我们都有过类似的体验呐。放学回家那种饥饿感，可真要人命啦。吃点甜纳豆怎么样？家里还有蛋糕和面包哟。”而我只顾着发挥自己与生俱来的那种讨好人的秉性，一边嗫嚅着“我饿了我饿了”一边把十粒甜纳豆一股脑儿塞进嘴巴里。正因为如此，我对所谓的“饥饿感”是何等滋味，一点也不了解。</string>
+    <string name="default_ok_tv">确定</string>
+    <string name="input_name">用户名</string>
+    <string name="input_password">密码</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_user_detail">UserDetailActivity</string>
+    <string name="sharedPreferences_tokenInfo">tokenInfo</string>
+    <string name="sharedPreference_userInfo">userInfo</string>
+    <string name="Flag_msgContent">messageContent</string>
+    <string name="FlagImageListSendImage">FlagImageList</string>
+    <string name="IntentExtraFlag_msgBody">msg_Content</string>
+    <string name="SharedPreference_userInfo_userId">userId</string>
+    <string name="SharedPreference_userInfo_userName">userName</string>
+    <string name="SharedPreference_userInfo_userGender">userGender</string>
+    <string name="SharedPreference_userInfo_userGrade">userGrade</string>
+    <string name="SharedPreference_userInfo_userMajor">userMajor</string>
+    <string name="SharedPreference_userInfo_userMinor">userMinor</string>
+    <string name="SharedPreference_userInfo_userSignature">userSignature</string>
+    <string name="SharedPreference_userInfo_userImage">userImage</string>
+    <string name="sharedPreference_tokenInfo_userId">userId</string>
+    <string name="sharedPreference_tokenInfo_token">token</string>
+    <string name="RequestParam_UserValidate_token">token</string>
+    <string name="SendMessageService_SendBroadcast_Intent_flag">STATE</string>
+    <string name="maxMessageIdInDb">maxMessageIdInDb</string>
+    <string name="getMessageToWhat">getMessageMethod</string>
+    <string name="getMessageEndId">getMessageEndId</string>
+    <string name="getMessageStartId">getMessageStartId</string>
+    <string name="getMessageFlag">getMessageFlag</string>
+    <string name="UserDetailStartFlag">startFlag</string>
+    <string name="week">周</string>
+    <string name="day">日</string>
+    <string name="month">月</string>
+</resources>

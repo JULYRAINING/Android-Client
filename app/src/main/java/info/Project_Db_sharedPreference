@@ -1,0 +1,36 @@
+SharedPreference:
+    1.tokenInfo:
+        userId int
+        token  string
+
+    调用位置1.LoginActivity
+                onclick ：login_button
+                    save：all
+    调用位置2：所有联网请求Api，都会读取token
+
+
+
+    2.userInfo:
+        userId int
+        userName string
+        userGender int
+        userGrade int
+        userMajor string
+        userMinor string
+        userSignature string
+        userImage string
+
+    调用位置1.：RegistryActivity：
+                onClick
+                    regist
+                        addUserDetail
+                            ：save userId
+    调用位置2.UserDetailActivity：
+                initView
+                    fab.click
+                        :get userId
+                        :save all
+    调用位置3.LoginActivity:
+                onclick: login_button
+                    userLogin
+                        :save all

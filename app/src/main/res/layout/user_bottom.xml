@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/id_user_personal_sign"
+                android:layout_width="fill_parent"
+                android:layout_height="55dp"
+                android:background="#FFEFD5"
+                android:orientation="horizontal">
+
+                <ImageView
+
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/user_personal_sign_img" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="个性签名"
+                    android:layout_gravity="center" />
+
+                <TextView
+                    android:id="@+id/id_user_signature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="要知道革命队伍里向来两种人最多：一无所有的和拥有太多的"
+                    android:layout_gravity="center" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/id_user_friends"
+                android:layout_width="fill_parent"
+                android:layout_height="55dp"
+                android:background="#FFEFD5"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/user_friends_img" />
+
+                <TextView
+                    android:id="@+id/id_user_friends_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="我的好友"
+                    android:layout_gravity="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/id_user_setting"
+                android:layout_width="fill_parent"
+                android:layout_height="55dp"
+                android:background="#FFEFD5"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/user_setting_img" />
+
+                <TextView
+                    android:id="@+id/id_user_setting_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="我的设置"
+                    android:layout_gravity="center"
+                    android:clickable="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="70dp"
+                android:background="#FFEFD5"
+
+                >
+
+                <Button
+                    android:id="@+id/id_user_cancel"
+                    style="@style/button_loginOrCancel"
+                    android:clickable="true"
+                    android:text="退出登录" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>
