@@ -1,7 +1,7 @@
 package com.md.util.net;
 
 /**
- * Created by SECONDHEAVEN on 2016/1/3.
+ * Created by SECONDHEAVEN on 2016/1/3.0
  */
 public class UrlString {
     //    private static String ip = "http://192.168.137.1:8080";
