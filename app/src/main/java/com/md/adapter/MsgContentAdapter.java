@@ -12,6 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.md.entity.CommentBO;
 import com.md.entity.MessageBO;
 import com.md.util.LoadImageApi;
@@ -21,13 +23,15 @@ import com.md_c_test.R;
 import com.recyclerview.listener.ClickListener;
 import com.recyclerview.listener.LongClickListener;
 
+import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.List;
 
 /**
  * Created by SECONDHEAVEN on 2015/12/26.
  */
 public class MsgContentAdapter extends RecyclerView.Adapter {
-
+    private String getMessageImageUrl = UrlString.messageGetImageUrl;
     String imageUrl = UrlString.userGetImageUrl;
     private Context context;
     private List<CommentBO> list;
@@ -96,36 +100,25 @@ public class MsgContentAdapter extends RecyclerView.Adapter {
             msgViewHolder.msg_content_publish_time.setText(date.substring(5, 16));
             msgViewHolder.msg_content_user_name.setText(msgContent.getMsgSender());
             msgViewHolder.msg_content.setText(msgContent.getMsgContent());
+
             String imageListStr = msgContent.getImagePathListStr();
-            //下述问题已解决，修改了服务器的返回值，在server端加判断
-            //这里我也不懂，本来imageListStr若为null，则不加载内层的recyclerView
-            //但是，我必须写成这样它才能运行成功...
-
-
-            /*if(imageListStr!=null){
-
-            }else{
-                MsgContentNestedAdapter msgContentNestedAdapter = new MsgContentNestedAdapter(context, imageListStr);
-                int msgContentRecyclerViewWidth = msgViewHolder.msg_content_recyclerview.getWidth();
-
-                msgViewHolder.msg_content_recyclerview.setItemAnimator(new DefaultItemAnimator());
-                msgViewHolder.msg_content_recyclerview.setLayoutManager(new MyGridLayoutManager(context,3,msgContentRecyclerViewWidth));
-                msgViewHolder.msg_content_recyclerview.setAdapter(msgContentNestedAdapter);
-
-            }*/
-
-            //我好像发现imageListStr的值就是"null"...
-            //已解决
+            List<HashMap<String, String>> imgList;
+            Gson gson = new Gson();
+            Type listType = new TypeToken<List<HashMap>>() {
+            }.getType();
+            imgList = gson.fromJson(imageListStr, listType);
             if (imageListStr == null) {
 
             } else {
-                MsgContentNestedAdapter msgContentNestedAdapter = new MsgContentNestedAdapter(context, imageListStr);
-                int msgContentRecyclerViewWidth = msgViewHolder.msg_content_recyclerview.getWidth();
+                for(int i = 0; i<imgList.size(); i++){
+                    ImageView imageView = new ImageView(context);
+                    String fileName = imgList.get(position).get("Image");
+                    StringBuilder sb = new StringBuilder();
+                    sb.append(getMessageImageUrl).append("?").append("Image").append("=").append(fileName);
 
-                msgViewHolder.msg_content_recyclerview.setItemAnimator(new DefaultItemAnimator());
-                msgViewHolder.msg_content_recyclerview.setLayoutManager(new MyGridLayoutManager(context, 3, msgContentRecyclerViewWidth));
-                msgViewHolder.msg_content_recyclerview.setAdapter(msgContentNestedAdapter);
-
+                    LoadImageApi.displayServer(imageView, sb.toString());
+                    msgViewHolder.images_layout.addView(imageView);
+                }
             }
 
 
@@ -164,7 +157,7 @@ public class MsgContentAdapter extends RecyclerView.Adapter {
         private TextView msg_content_user_name;
         private TextView msg_content_publish_time;
         private TextView msg_content;
-        private RecyclerView msg_content_recyclerview;
+        private LinearLayout images_layout;
 
         public MsgViewHolder(View itemView) {
             super(itemView);
@@ -176,8 +169,8 @@ public class MsgContentAdapter extends RecyclerView.Adapter {
                     .findViewById(R.id.id_msg_content_user_name);
             msg_content = (TextView) itemView
                     .findViewById(R.id.id_msg_content);
-            msg_content_recyclerview = (RecyclerView) itemView
-                    .findViewById(R.id.id_msg_content_recyclerview);
+            images_layout = (LinearLayout) itemView
+                    .findViewById(R.id.images_layout);
         }
 
         @Override

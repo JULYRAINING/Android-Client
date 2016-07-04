@@ -3,7 +3,10 @@ package com.md.adapter;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.md.entity.MessageBO;
 import com.md.util.LoadImageApi;
 import com.md.util.net.UrlString;
@@ -19,12 +24,15 @@ import com.md_c_test.R;
 import com.recyclerview.listener.ClickListener;
 import com.recyclerview.listener.LongClickListener;
 
+import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.List;
 
 /**
  * Created by SECONDHEAVEN on 2015/12/13.
  */
 public class MsgAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private String getMessageImageUrl = UrlString.messageGetImageUrl;
     private Fragment f;
     private List<MessageBO> list;
     private ClickListener clickListener;
@@ -91,6 +99,47 @@ public class MsgAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             String url = imageUrl + params + tokenInfo;
             LoadImageApi.display(viewHolder.msg_content_user_img,
                     url);
+
+            String imgListStr = list.get(position).getImagePathListStr();
+            final List<HashMap<String, String>> imgList;
+            Gson gson = new Gson();
+            Type listType = new TypeToken<List<HashMap>>() {
+            }.getType();
+            imgList = gson.fromJson(imgListStr, listType);
+            ViewPager viewPager = new ViewPager(f.getContext());
+            LinearLayout.LayoutParams layout_params = new LinearLayout
+                    .LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 200);
+
+            viewPager.setLayoutParams(layout_params);
+            PagerAdapter pagerAdapter = new PagerAdapter() {
+                final  List<HashMap<String, String>> imageList = imgList;
+                @Override
+                public Object instantiateItem(ViewGroup container, int position) {
+
+                    ImageView imageView = new ImageView(f.getContext());
+
+                    String fileName = imageList.get(position).get("Image");
+                    StringBuilder sb = new StringBuilder();
+                    sb.append(getMessageImageUrl).append("?").append("Image").append("=").append(fileName);
+
+                    LoadImageApi.displayServer(imageView, sb.toString());
+                    return  imageView;
+                }
+
+                @Override
+                public int getCount() {
+                    return imageList.size();
+                }
+
+                @Override
+                public boolean isViewFromObject(View view, Object object) {
+                    return false;
+                }
+            };
+           viewPager.setAdapter(pagerAdapter);
+
+            viewHolder.msg_content_layout.addView(viewPager);
+
             viewHolder.msg_content.setText(list.get(position).getMsgContent());
             //2013-02-26 20:13:57.0
             String date = list.get(position).getMsgSendTime();
