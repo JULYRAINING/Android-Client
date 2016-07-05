@@ -1,16 +1,22 @@
 package com.md.adapter;
 
 import android.content.Context;
+import android.support.design.widget.Snackbar;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -24,6 +30,7 @@ import com.recyclerview.listener.ClickListener;
 import com.recyclerview.listener.LongClickListener;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -38,13 +45,16 @@ public class MsgContentAdapter extends RecyclerView.Adapter {
     private MessageBO msgContent;
     private ClickListener clickListener;
     private LongClickListener longClickListener;
+    private int screenWidth;
+    public static List<ImageView> imageViews;
 
 
-    public MsgContentAdapter(Context context, List<CommentBO> list, MessageBO msgContent) {
+
+    public MsgContentAdapter(Context context, List<CommentBO> list, MessageBO msgContent, int screenWidth) {
         this.context = context;
         this.list = list;
         this.msgContent = msgContent;
-
+        this.screenWidth = screenWidth;
         Log.e("加载", "外层adapter");
 
     }
@@ -97,28 +107,93 @@ public class MsgContentAdapter extends RecyclerView.Adapter {
                     url);
             //2013-02-26 20:13:57.0
             String date = msgContent.getMsgSendTime();
+            Log.e("timetime", date);
             msgViewHolder.msg_content_publish_time.setText(date.substring(5, 16));
             msgViewHolder.msg_content_user_name.setText(msgContent.getMsgSender());
             msgViewHolder.msg_content.setText(msgContent.getMsgContent());
 
-            String imageListStr = msgContent.getImagePathListStr();
-            List<HashMap<String, String>> imgList;
+            final String imageListStr = msgContent.getImagePathListStr();
             Gson gson = new Gson();
             Type listType = new TypeToken<List<HashMap>>() {
             }.getType();
-            imgList = gson.fromJson(imageListStr, listType);
+           final List<HashMap<String, String>> imgList = gson.fromJson(imageListStr, listType);
             if (imageListStr == null) {
 
             } else {
+/*
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,500);
+                ViewPager viewPager = new ViewPager(context);
+                viewPager.setLayoutParams(layoutParams);
+                viewPager.setAdapter(new PagerAdapter() {
+
+                    @Override
+                    public int getCount() {
+                        return imgList.size();
+                    }
+
+                    @Override
+                    public boolean isViewFromObject(View view, Object object) {
+                        return view == object;
+                    }
+
+                    @Override
+                    public Object instantiateItem(ViewGroup container, int position) {
+                        ImageView imageView = new ImageView(context);
+                        imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,200);
+                        layoutParams.setMargins(0,5,0,5);
+                        imageView.setLayoutParams(layoutParams);
+                        String fileName = imgList.get(position).get("Image");
+                        StringBuilder sb = new StringBuilder();
+                        sb.append(getMessageImageUrl).append("?").append("Image").append("=").append(fileName);
+
+                        LoadImageApi.displayServer(imageView, sb.toString());
+                       container.addView(imageView);
+                        return imageView;
+                    }
+
+                    @Override
+                    public void destroyItem(ViewGroup container, int position, Object object) {
+
+                    }
+                });
+              msgViewHolder.images_layout.addView(viewPager);
+                */
+                LinearLayout firstlayout = new LinearLayout(context);
+                LinearLayout secondlayout = new LinearLayout(context);
+                LinearLayout thirdlayout = new LinearLayout(context);
+                int itemWidth = screenWidth/3;
+                imageViews = new ArrayList<>();
                 for(int i = 0; i<imgList.size(); i++){
+
+
+
                     ImageView imageView = new ImageView(context);
-                    String fileName = imgList.get(position).get("Image");
+                    imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(itemWidth,itemWidth);
+                    layoutParams.setMargins(2,2,2,2);
+                    imageView.setLayoutParams(layoutParams);
+                    String fileName = imgList.get(i).get("Image");
                     StringBuilder sb = new StringBuilder();
                     sb.append(getMessageImageUrl).append("?").append("Image").append("=").append(fileName);
 
                     LoadImageApi.displayServer(imageView, sb.toString());
-                    msgViewHolder.images_layout.addView(imageView);
+
+                    if(i<3){
+                        firstlayout.addView(imageView);
+                    }else if(i<6){
+                        secondlayout.addView(imageView);
+                    }else {
+                        thirdlayout.addView(imageView);
+                    }
+                    imageViews.add(imageView);
+
                 }
+                msgViewHolder.images_layout.addView(firstlayout);
+                msgViewHolder.images_layout.addView(secondlayout);
+                msgViewHolder.images_layout.addView(thirdlayout);
+
+
             }
 
 
@@ -171,11 +246,12 @@ public class MsgContentAdapter extends RecyclerView.Adapter {
                     .findViewById(R.id.id_msg_content);
             images_layout = (LinearLayout) itemView
                     .findViewById(R.id.images_layout);
+//            images_layout.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-
+            clickListener.click(v, getAdapterPosition());
         }
 
         @Override

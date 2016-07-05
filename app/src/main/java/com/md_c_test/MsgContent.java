@@ -8,6 +8,8 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -15,13 +17,18 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
@@ -30,6 +37,8 @@ import com.md.adapter.MsgContentAdapter;
 import com.md.entity.CollectionBO;
 import com.md.entity.CommentBO;
 import com.md.entity.MessageBO;
+import com.md.util.LoadImageApi;
+import com.md.util.net.UrlString;
 import com.md.util.networkapi.CollectionApi;
 import com.md.util.networkapi.CommentApi;
 import com.md.util.request.ResponseListener;
@@ -40,6 +49,7 @@ import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import me.drakeet.materialdialog.MaterialDialog;
@@ -49,6 +59,7 @@ public class MsgContent extends AppCompatActivity implements ClickListener,
         SwipeRefreshLayout.OnRefreshListener {
 
     private static final int NON_REFERENCE = -1;
+    private String getMessageImageUrl = UrlString.messageGetImageUrl;
 
     private ImageView msg_content_user_img;
     private TextView msg_content_user_name;
@@ -68,7 +79,7 @@ public class MsgContent extends AppCompatActivity implements ClickListener,
     private String userName;
     private SwipeRefreshLayout swipeRefreshLayout;
     private boolean isRefreshing = false;
-
+    public  List<ImageView> imageViews;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +88,8 @@ public class MsgContent extends AppCompatActivity implements ClickListener,
 
         setContentView(R.layout.message_content_real);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        WindowManager wm = this.getWindowManager();
+        int screenWidth = wm.getDefaultDisplay().getWidth();
         initView();
         messageBO = getIntentData();
         initEvent();
@@ -95,7 +108,7 @@ public class MsgContent extends AppCompatActivity implements ClickListener,
         contentAndCommentList.add(null);
         contentAndCommentList.add(null);
 
-        adapter = new MsgContentAdapter(this, contentAndCommentList, messageBO);
+        adapter = new MsgContentAdapter(this, contentAndCommentList, messageBO, screenWidth);
         adapter.setClickListener(this);
         adapter.setLongClickListener(this);
 
@@ -314,9 +327,10 @@ public class MsgContent extends AppCompatActivity implements ClickListener,
 
 
             case R.id.id_comment_layout:
+                Log.e("comment_info", new Gson().toJson(contentAndCommentList));
                 int refCommentId = contentAndCommentList.get(position).getCommentId();
                 int commentUserId = contentAndCommentList.get(position).getUserId();
-                String refUserName = contentAndCommentList.get(position).getRefCommentUserName();
+                String refUserName = contentAndCommentList.get(position).getUserName();
                 if (commentUserId == userId) {
                     Snackbar.make(v, "请不要对自己的评论进行回复", Snackbar.LENGTH_SHORT).show();
                 } else {
@@ -325,6 +339,87 @@ public class MsgContent extends AppCompatActivity implements ClickListener,
                 }
 
 
+                break;
+            case R.id.images_layout:
+                final String imageListStr = messageBO.getImagePathListStr();
+                Gson gson = new Gson();
+                Type listType = new TypeToken<List<HashMap>>() {
+                }.getType();
+                final List<HashMap<String, String>> imgList = gson.fromJson(imageListStr, listType);
+                /*
+                final ViewFlipper viewFlipper = new ViewFlipper(this);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                viewFlipper.setLayoutParams(layoutParams);
+                List<ImageView> imageViews = new ArrayList<>();
+
+
+
+                    for(int i = 0; i< imgList.size(); i++){
+                        ImageView imageView = new ImageView(this);
+                        imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                        layoutParams.setMargins(2,2,2,2);
+                        imageView.setLayoutParams(params);
+                        String fileName = imgList.get(i).get("Image");
+                        StringBuilder sb = new StringBuilder();
+                        sb.append(getMessageImageUrl).append("?").append("Image").append("=").append(fileName);
+
+                        LoadImageApi.displayServer(imageView, sb.toString());
+                        viewFlipper.addView(imageView);
+                    }
+                viewFlipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.push_left_in));
+                viewFlipper.setOutAnimation(AnimationUtils.loadAnimation(this, R.anim.push_left_out));
+                viewFlipper.setFlipInterval(500);
+                viewFlipper.startFlipping();
+*/
+
+                LinearLayout.LayoutParams viewpagerparams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,500);
+                ViewPager viewPager = new ViewPager(this);
+                viewPager.setLayoutParams(viewpagerparams);
+                viewPager.setAdapter(new PagerAdapter() {
+
+                    @Override
+                    public int getCount() {
+                        return imgList.size();
+                    }
+
+                    @Override
+                    public boolean isViewFromObject(View view, Object object) {
+                        return view == object;
+                    }
+
+                    @Override
+                    public Object instantiateItem(ViewGroup container, int position) {
+                        ImageView imageView = new ImageView(MsgContent.this);
+                        imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                        layoutParams.setMargins(0,5,0,5);
+                        imageView.setLayoutParams(layoutParams);
+                        String fileName = imgList.get(position).get("Image");
+                        StringBuilder sb = new StringBuilder();
+                        sb.append(getMessageImageUrl).append("?").append("Image").append("=").append(fileName);
+
+                        LoadImageApi.displayServer(imageView, sb.toString());
+                        container.addView(imageView);
+                        return imageView;
+                    }
+
+                    @Override
+                    public void destroyItem(ViewGroup container, int position, Object object) {
+
+                    }
+                });
+
+
+                final MaterialDialog materialDialog = new MaterialDialog(this);
+                materialDialog.setView(viewPager).setPositiveButton("确定", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        materialDialog.dismiss();
+                    }
+                });
+                materialDialog.show();
                 break;
 
         }

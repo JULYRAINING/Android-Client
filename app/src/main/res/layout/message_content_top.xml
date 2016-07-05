@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/id_msg_content_user_name"
         android:layout_alignLeft="@+id/id_msg_content_user_name"
-        android:visibility="gone"
+
         android:text="01:35" />
 
 </RelativeLayout>

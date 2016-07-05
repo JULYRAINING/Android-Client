@@ -35,6 +35,7 @@ import com.md.util.request.ResponseListener;
 import org.xutils.common.Callback;
 
 import java.io.File;
+import java.io.InputStream;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import me.drakeet.materialdialog.MaterialDialog;
@@ -65,8 +66,8 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
     private String userMajor = "major";
     private String userMinor = "minor";
     private int userGrade = 3;
-    private String userImage = Environment.getExternalStorageDirectory() + File.separator + "image2.jpg";
 
+    private String userImage = "empty";
     private int userGender = 0;
     private int userId;
     private Intent intent;
@@ -98,7 +99,7 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
 
     private void initEvent() {
         genderLayout.setOnClickListener(this);
-        userImageView.setOnClickListener(this);
+//        userImageView.setOnClickListener(this);
 
     }
 

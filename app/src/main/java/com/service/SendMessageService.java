@@ -66,11 +66,12 @@ public class SendMessageService extends Service {
                 String msgImageListStr = JsonConverter.toJson(msgImageList);
                 messageBO.setImagePathListStr(msgImageListStr);
             } else {
-                messageBO.setImagePathListStr("[{\"Image\":\"/assets://default_upload_img.png\"}]");
+                messageBO.setImagePathListStr("[{\"Image\":\"message_empty\"}]");
+                //messageBO.setImagePathListStr("[{\"Image\":\"/storage/emulated/0/image2.jpg\"}]");
             }
 
 
-            //messageBO.setImagePathListStr("[{\"Image\":\"/storage/emulated/0/image2.jpg\"}]");
+
 
             Log.e("userName", userName);
             SendMessageApi.send(messageBO, new Callback.CommonCallback<ResponseEntity>() {

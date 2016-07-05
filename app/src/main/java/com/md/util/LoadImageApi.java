@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import com.md_c_test.MyApplication;
 import com.md_c_test.R;
 
+import org.xutils.common.util.DensityUtil;
 import org.xutils.image.ImageOptions;
 import org.xutils.x;
 
@@ -17,7 +18,8 @@ import org.xutils.x;
 public class LoadImageApi {
     public static void display(ImageView container, String resourcePath) {
         ImageOptions imageOptions = new ImageOptions.Builder()
-                .setImageScaleType(ImageView.ScaleType.CENTER_CROP).build();
+                .setSize(DensityUtil.dip2px(120), DensityUtil.dip2px(120)).setImageScaleType(ImageView.ScaleType.CENTER_CROP).build();
+
         x.image().bind(container, resourcePath);
 
         //x.image().loadDrawable("",null,null);
@@ -42,9 +44,9 @@ public class LoadImageApi {
         String url = resourcePath + tokenInfo;
 
         ImageOptions imageOptions = new ImageOptions.Builder()
-                .setImageScaleType(ImageView.ScaleType.CENTER_INSIDE).build();
+                 .setImageScaleType(ImageView.ScaleType.CENTER_CROP).build();
 
-        x.image().bind(container, url);
+        x.image().bind(container, url, imageOptions);
 
         //x.image().loadDrawable("",null,null);
     }
