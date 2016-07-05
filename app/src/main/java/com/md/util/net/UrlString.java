@@ -5,8 +5,8 @@ package com.md.util.net;
  */
 public class UrlString {
     //    private static String ip = "http://192.168.137.1:8080";
-    private static String ip = "http://10.0.2.2:8080";
-    private static String project = "/DbTest";
+    private static String ip = "http://139.129.47.134:8080";
+    private static String project = "/CUPServer";
     private static String uploadController = "/upload";
     private static String downloadController = "/download";
     private static String messageController = "/message";
